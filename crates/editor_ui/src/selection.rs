@@ -58,10 +58,10 @@ pub fn select_listener(
     prefabs: Query<Entity, With<PrefabMarker>>,
     parents: Query<&Parent>,
     mut events: EventReader<SelectEvent>,
-    pan_orbit_state: ResMut<EditorCameraEnabled>,
+    flycam_state: ResMut<EditorCameraEnabled>,
     keyboard: Res<ButtonInput<KeyCode>>,
 ) {
-    if !pan_orbit_state.0 {
+    if !flycam_state.0 {
         events.clear();
         return;
     }
@@ -100,9 +100,10 @@ pub fn delete_selected(
 ) {
     let shift = keyboard.any_pressed([KeyCode::ShiftLeft, KeyCode::ShiftRight]);
     let ctrl = keyboard.any_pressed([KeyCode::ControlLeft, KeyCode::ControlRight]);
-    let delete = keyboard.any_just_pressed([KeyCode::Backspace, KeyCode::Delete]);
+    let backspace = keyboard.just_pressed(KeyCode::Backspace);
+    let delete = keyboard.just_pressed(KeyCode::Delete);
 
-    if ctrl && shift && delete {
+    if (ctrl && shift && backspace) || (!ctrl && !shift && delete) {
         for entity in query.iter() {
             info!("Delete Entity: {entity:?}");
             commands.entity(entity).despawn_recursive();
