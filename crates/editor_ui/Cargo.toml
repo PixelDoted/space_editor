@@ -22,6 +22,7 @@ space_prefab.workspace = true
 space_undo.workspace = true
 space_persistence.workspace = true
 space_shared.workspace = true
+editor_flycam.workspace = true
 
 serde.workspace = true
 pretty-type-name.workspace = true
@@ -32,15 +33,14 @@ bevy_debug_grid.workspace = true
 bevy-inspector-egui.workspace = true
 bevy_mod_picking.workspace = true
 bevy_asset_loader.workspace = true
-bevy_panorbit_camera.workspace = true
 bevy_mod_billboard.workspace = true
 convert_case.workspace = true
 anyhow.workspace = true
 bevy_common_assets.workspace = true
 egui_extras.workspace = true
 
-[patch.crates-io]
-egui-gizmo = { git = "https://github.com/naomijub/egui-gizmo.git" }
+# [patch.crates-io]
+# egui-gizmo = { git = "https://github.com/naomijub/egui-gizmo.git" }
 
 [lints]
 workspace = true

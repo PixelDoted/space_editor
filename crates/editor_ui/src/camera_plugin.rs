@@ -1,5 +1,6 @@
 use crate::*;
 use bevy::prelude::*;
+use editor_flycam::{Flycam, FlycamSystemSet};
 
 pub struct EditorDefaultCameraPlugin;
 
@@ -13,16 +14,16 @@ impl Plugin for EditorDefaultCameraPlugin {
         );
         app.add_systems(
             Update,
-            update_pan_orbit
+            update_flycam
                 .after(reset_editor_camera_state)
-                .before(PanOrbitCameraSystemSet)
+                .before(FlycamSystemSet)
                 .in_set(EditorSet::Editor),
         );
         app.add_systems(
             Update,
             ui_camera_block
                 .after(reset_editor_camera_state)
-                .before(update_pan_orbit)
+                .before(update_flycam)
                 .in_set(EditorSet::Editor),
         );
         app.add_systems(OnEnter(EditorState::GamePrepare), reset_play_camera_state);
@@ -52,12 +53,9 @@ pub fn reset_play_camera_state(mut state: ResMut<EditorCameraEnabled>) {
 
 /// This system executes after all UI systems and is used to set pan orbit camera state.
 /// For example, it will block pan orbit camera if pointer is used by egui
-pub fn update_pan_orbit(
-    mut pan_orbit_query: Query<&mut PanOrbitCamera>,
-    state: Res<EditorCameraEnabled>,
-) {
-    for mut pan_orbit in pan_orbit_query.iter_mut() {
-        pan_orbit.enabled = state.0;
+pub fn update_flycam(mut flycam_query: Query<&mut Flycam>, state: Res<EditorCameraEnabled>) {
+    for mut flycam in flycam_query.iter_mut() {
+        flycam.enabled = state.0;
     }
 }
 

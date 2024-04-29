@@ -20,7 +20,8 @@ members = [
     "crates/persistence",
     "crates/editor_core", 
     "crates/editor_ui", 
-    "modules/bevy_xpbd_plugin"
+    "modules/bevy_xpbd_plugin",
+    "crates/editor_flycam"
 ]
 
 [workspace.package]
@@ -34,7 +35,7 @@ repository = "https://github.com/rewin123/space_editor"
 homepage = "https://github.com/rewin123/space_editor"
 
 [workspace.dependencies]
-bevy = "0.13.1"
+bevy = "0.13.2"
 
 # Editor Crates
 space_prefab = { version = "0.5.0", path = "crates/prefab" }
@@ -43,6 +44,7 @@ space_undo = { version = "0.5.0", path = "crates/undo" }
 space_persistence = { version = "0.5.0", path = "crates/persistence"}
 space_editor_core = { version = "0.5.0", path = "crates/editor_core", features = ["persistence_editor"] }
 space_editor_ui = { version = "0.5.0", path = "crates/editor_ui", features = ["persistence_editor"] }
+editor_flycam = { version = "0.5.0", path = "crates/editor_flycam" }
 
 # Crates inner libraries
 anyhow = "1.0"
@@ -59,7 +61,6 @@ bevy_mod_picking = { version = "0.18.1", default-features = false, features = [
     "backend_raycast",
     "selection",
 ] }
-bevy_panorbit_camera = {version = "0.16", default-features = false}
 bevy-scene-hook = "10"
 convert_case = "0.6"
 egui_dock = "0.11"
@@ -67,7 +68,7 @@ egui_extras = { version = "0.26", features = ["all_loaders"] }
 egui_file = "0.15"
 egui-gizmo = "0.16.1"
 egui-toast = "0.12.1"
-image = {version = "0.24.8", feature = ["png"] }
+image = "0.24.8"
 
 pretty-type-name = "1"
 ron = "0.8"

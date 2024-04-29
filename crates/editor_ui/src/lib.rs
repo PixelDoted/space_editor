@@ -65,8 +65,8 @@ use bevy_mod_picking::{
     prelude::*,
     PickableBundle,
 };
-use bevy_panorbit_camera::{PanOrbitCamera, PanOrbitCameraPlugin, PanOrbitCameraSystemSet};
 use camera_view::CameraViewTabPlugin;
+use editor_flycam::FlycamPlugin;
 use egui_dock::DockArea;
 use space_editor_core::prelude::*;
 
@@ -113,6 +113,7 @@ pub mod prelude {
         tools::*, ui_registration::*,
     };
 
+    pub use editor_flycam::*;
     pub use space_editor_core::prelude::*;
     pub use space_persistence::*;
     pub use space_prefab::prelude::*;
@@ -129,7 +130,6 @@ pub mod prelude {
 pub mod ext {
     pub use bevy_egui;
     pub use bevy_mod_picking;
-    pub use bevy_panorbit_camera;
     pub use space_shared::ext::*;
 }
 
@@ -162,7 +162,7 @@ impl PluginGroup for EditorPluginGroup {
             .add(EventListenerPlugin::<selection::SelectEvent>::default())
             .add(DefaultInspectorConfigPlugin);
         res = EditorUiPlugin::default().add_plugins_to_group(res);
-        res.add(PanOrbitCameraPlugin)
+        res.add(FlycamPlugin)
             .add(selection::EditorPickingPlugin)
             .add(bevy_debug_grid::DebugGridPlugin::without_floor_grid())
             .add(
@@ -352,7 +352,7 @@ pub fn simple_editor_setup(mut commands: Commands) {
             },
             ..default()
         },
-        bevy_panorbit_camera::PanOrbitCamera::default(),
+        editor_flycam::Flycam::default(),
         EditorCameraMarker,
         Name::from("Editor Camera"),
         PickableBundle::default(),
@@ -383,7 +383,7 @@ pub fn game_mode_changed(
                     },
                     ..default()
                 },
-                bevy_panorbit_camera::PanOrbitCamera::default(),
+                editor_flycam::Flycam::default(),
                 EditorCameraMarker,
                 Name::from("Editor Camera"),
                 PickableBundle::default(),

@@ -5,6 +5,7 @@ use bevy_egui::egui::{
     FontId, Margin, Rounding, TextStyle as ETextStyle, Vec2,
 };
 use camera_plugin::draw_camera_gizmo;
+use editor_flycam::FlycamSystemSet;
 use meshless_visualizer::draw_light_gizmo;
 
 use self::{
@@ -117,14 +118,14 @@ impl Plugin for EditorUiCore {
             Update,
             (
                 show_editor_ui
-                    .before(update_pan_orbit)
+                    .before(update_flycam)
                     .before(ui_camera_block)
                     .after(menu_toolbars::top_menu)
                     .after(menu_toolbars::bottom_menu),
                 set_camera_viewport,
             )
                 .in_set(UiSystemSet)
-                .before(PanOrbitCameraSystemSet),
+                .before(FlycamSystemSet),
         );
 
         app.add_systems(
