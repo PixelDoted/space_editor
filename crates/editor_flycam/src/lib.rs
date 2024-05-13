@@ -71,7 +71,9 @@ fn movement(
         }
     }
 
-    let mut window = primary_window.single_mut();
+    let Ok(mut window) = primary_window.get_single_mut() else {
+        return;
+    };
     if grab_cursor && window.cursor.visible {
         window.cursor.visible = false;
         window.cursor.grab_mode = CursorGrabMode::Locked;
